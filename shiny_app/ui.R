@@ -11,7 +11,7 @@ dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       menuItem("Explore", tabName = "explore", icon = icon("globe")),
-      menuItem("Renewables", tabName = "renewables", icon = icon("recycle")),
+      menuItem("Non-Fossil Fuel Index", tabName = "renewables", icon = icon("recycle")),
       menuItem("Analyze", tabName = "analyze", icon = icon("bolt")),
       menuItem("Data", tabName = "data", icon = icon("table"))
     )
@@ -32,7 +32,7 @@ dashboardPage(
                 width = NULL,
                 status = "warning",
                 "Building a power plant represents a long-term committment to that energy strategy.",
-                br(),
+                br(), br(),
                 "Identifying growth countries for trading resources or promoting alternative
                 energy strategies could help achieve economic and environmental goals.",
                 hr(),
@@ -65,14 +65,15 @@ dashboardPage(
                      width = NULL, 
                      solidHeader = TRUE, 
                      status = "warning",
-                     "2-sentence introduction to the question."
+                     "Now that you've explored through the 
+                      previous tabs, investigate details about electricity 
+                      capacity for your country of interest."
                  ),
-                  box(title = "Select inputs",
+                  box(title = "Select a country",
                      width = NULL, 
                      status = "warning",
-                     selectizeInput('country_select', 'Select a country:', 
-                                    choices = electricity$country_or_area,
-                                    selected = "France"))
+                     selectizeInput('country_select', 'Select or type in a country name:', 
+                                    choices = electricity$country_or_area))
           ),
           column(width = 9,
                  box(title = NULL,
@@ -93,7 +94,7 @@ dashboardPage(
                       status = "warning",
                       "The non-combustible index is proportion of electric capacity that
                       does not explicity rely on fossil fuels normalized by total capacity.",
-                      br(),
+                      br(), br(),
                       "Changing electricity infrastructure is slow and expensive, but some
                       regions are changing energy strategies faster than others.",
                       hr(),

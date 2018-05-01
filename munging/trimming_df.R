@@ -33,7 +33,8 @@ electricity <- energy_total %>%
   mutate(`non-fossil fuels` = sum(solar, geothermal, hydro,
                            nuclear, wind, tide, na.rm = TRUE),
          non_combust_index = sqrt(`non-fossil fuels`/total_capacity)) %>% 
-  gather(key = "capacity", value = "value", 6:14)
+  gather(key = "capacity", value = "value", 6:14) %>% 
+  arrange(country_or_area)
 
 #OK, now I have a dataset for the app less than 10k but richer in variables
 
