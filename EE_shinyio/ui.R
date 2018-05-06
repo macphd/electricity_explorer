@@ -2,7 +2,7 @@
 library(shiny)
 library(shinydashboard)
 library(DT)
-
+library(plotly)
 #### ui.R ####
 
 dashboardPage(
@@ -26,7 +26,7 @@ dashboardPage(
                 solidHeader = TRUE,
                 status = "warning",
                 "This graph visualizes changes in electricity infrastructure for
-                countries (points) and regions (colors) from 1999 - 2014. 
+                countries (points) and regions (colors) from 1999 - 2014, [1] 
                 "),
             box(title = "Rationale: Energy Infrastructure",
                 width = NULL,
@@ -54,7 +54,9 @@ dashboardPage(
             box(title = "Select countries above",
                 width = NULL,
                 status = "warning",
-                verbatimTextOutput("brush_info")) # stretch printout?
+                verbatimTextOutput("brush_info"),
+                "[1]: Visualization is on a log-log scale to 
+                minimize country overlap.") # stretch printout?
           )
         )
       ), 

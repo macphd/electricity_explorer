@@ -18,25 +18,26 @@ unique(energy_total$category)
 # 3) Mutate new variables 
 #    - non_combust sums all electric capacity that does not use fossil fuels
 #    - non_combust_index is the percent of non_combust normalized by total capacity
-# 4) Re-gather capacity variables
+# 4) Re-gather capacity variables and remove NAs
 
 electricity <- energy_total %>% 
   filter(category == "electricity_net_installed_capacity_of_electric_power_plants",
          !is.na(alpha_3)) %>% 
   spread(commodity_transaction, quantity) %>% 
-  select(7, 1, 2, 10, 11, total_capacity = 35,
+  select(7, 1, 2, 10, 11, `total capacity` = 35,
          `fossil fuels` = 31, solar = 37,
          geothermal = 32, hydro = 33,
          nuclear = 36, wind = 39,
          tide = 38) %>%
   group_by(year, alpha_3) %>% 
   mutate(`non-fossil fuels` = sum(solar, geothermal, hydro,
-                           nuclear, wind, tide, na.rm = TRUE),
-         non_combust_index = sqrt(`non-fossil fuels`/total_capacity)) %>% 
-  gather(key = "capacity", value = "value", 6:14) %>% 
-  arrange(country_or_area)
+                                  nuclear, wind, tide, na.rm = TRUE),
+         non_combust_index = sqrt(`non-fossil fuels`/`total capacity`)) %>% 
+   gather(key = "variable", value = "value", 6:15) %>% 
+   filter(!is.na(value)) %>% 
+   arrange(country_or_area)
 
-#OK, now I have a dataset for the app less than 10k but richer in variables
+#OK, now I have a dataset for the app w/ 30k obs & 7 variables
 
 # confirm unique units by category
 capacity_units <- energy_total %>% 
